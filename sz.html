@@ -1,298 +1,486 @@
-<!DOCTYPE html>
 <html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.css">
-<script src="https://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="https://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-</head>
-<body>
-
-<div data-role="page" id="pageone" data-theme="b">
-  <div data-role="header">
-    <h1>骰子游戏</h1>
-  </div>
-
-  <div data-role="content">
-    	<style>
-		.ui-block-a, .ui-block-b{
-			height: 150px;
-			text-align: center;
-			padding: 30px;
-		}
-		body{
-			background:#ccc;
-		}
-		p{
-			padding:0;
-			margin:0;
-		}
-		/*创建舞台的样式*/
-		.stage{
-			width:50px;
-			height:50px;
-			/*background:#fff;*/
-			perspective: 1000px;
-			margin:50px auto 0;
-            top: 1%;			
-			transform-style:preserve-3d; 
-			border:.0px solid gray;
-			position: relative;
-			transition: all 1s;
-			animation:;
-			transform:rotateX(-25deg) rotateY(15deg);
-			
-		}
-		.stage:hover{
-			transform: rotateX(180deg) rotateY(180deg);
-		}
-		/*创建面的样式*/
-		.con{
-			width:90%;
-			height:90%;
-			background: #fff;
-			opacity: 1;
-			border-radius: 10px;
-			position: absolute;
-		}
-		/*创点的样式*/
-		.dot{
-			width:10px;
-			height: 10px;
-			border-radius: 50%;
-			background:blue;
-		}
-		/*	控制点的位置*/
-		.stage .con:first-child{
-			display:flex;
-			justify-content: center;
-			align-items: center;
-		}
-		.stage .con:first-child .dot{
-			width:20px;
-			height: 20px;
-			background: red;
-		}
-		.stage .con:nth-child(4) .dot{
-			background: red;
-		}
-		
-		.stage .con:nth-child(2){
-			display:flex;
-			justify-content:space-around;
-			
-		}
-		.stage .con:nth-child(2) .dot:nth-child(2){
-			align-self: flex-end;
-		}
-		.stage .con:nth-child(3){
-			display:flex;
-			justify-content:space-around;
-			
-		}
-		.stage .con:nth-child(3) .dot:nth-child(2){
-			align-self: center;
-		}
-		.stage .con:nth-child(3) .dot:nth-child(3){
-			align-self: flex-end;
-		}
-		.stage .con:nth-child(4){
-			display:flex;
-			flex-direction: column;
-			justify-content:space-around;
-			
-		}
-		.stage .con:nth-child(4) .scon{
-			display: flex;
-			justify-content:space-around;
-		}
-		.stage .con:nth-child(5){
-			display:flex;
-			flex-direction: column;
-			justify-content:space-around;
-			
-		}
-		.stage .con:nth-child(5) .scon{
-			display: flex;
-			justify-content:space-around;
-		}
-		.stage .con:nth-child(5) .scon:nth-child(2){
-			display: flex;
-			justify-content:center;
-		}
-		.stage .con:nth-child(6){
-			display:flex;
-			flex-direction: column;
-			justify-content:space-around;
-			
-		}
-		.stage .con:nth-child(6) .scon{
-			display: flex;
-			justify-content:space-around;
-		}
-		/*旋转六个面,形成一个立方体*/
-		.stage .con:first-child{
-			transform: translateZ(22.5px);
-		}
-		.stage .con:nth-child(6){
-			transform: translateZ(-22.5px);
-		}
-		.stage .con:nth-child(2){
-			transform: translateX(-22.5px) rotateY(90deg);
-		}
-		.stage .con:nth-child(5){
-			transform: translateX(22.5px) rotateY(90deg);
-		}
-		.stage .con:nth-child(3){
-			transform: translateY(-22.5px) rotateX(90deg);
-		}
-		.stage .con:nth-child(4){
-			transform: translateY(22.5px) rotateX(90deg);
-		}
-	</style>
-</head>
-<body>
-	<div class="ui-grid-a">
-		
-      <div class="ui-block-a" align="center">
-<div class="stage" id="stage_id_1" >
-	<div class="con">
-		<p class="dot"></p>
-	</div>
-	<div class="con">
-		<p class="dot"></p>
-		<p class="dot"></p>
-	</div>
-	<div class="con">
-		<p class="dot"></p>
-		<p class="dot"></p>
-		<p class="dot"></p>
-	</div>
-	<div class="con">
-		<div class="scon">
-			<p class="dot"></p>
-			<p class="dot"></p>
-		</div>
-		<div class="scon">
-			<p class="dot"></p>
-			<p class="dot"></p>
-		</div>
-	</div>
-	<div class="con">
-		<div class="scon">
-			<p class="dot"></p>
-			<p class="dot"></p>
-		</div>
-		<div class="scon">
-			<p class="dot"></p>
-		</div>
-		<div class="scon">
-			<p class="dot"></p>
-			<p class="dot"></p>
-		</div>
-	</div>
-	<div class="con">
-		<div class="scon">
-			<p class="dot"></p>
-			<p class="dot"></p>
-		</div>
-		<div class="scon">
-			<p class="dot"></p>
-			<p class="dot"></p>
-		</div>
-		<div class="scon">
-			<p class="dot"></p>
-			<p class="dot"></p>
-		</div>
-	</div>
-</div>
-</div>
-		
-<div class="ui-block-b" align="center">
-<div class="stage" id="stage_id_2">
-	<div class="con">
-		<p class="dot"></p>
-	</div>
-	<div class="con">
-		<p class="dot"></p>
-		<p class="dot"></p>
-	</div>
-	<div class="con">
-		<p class="dot"></p>
-		<p class="dot"></p>
-		<p class="dot"></p>
-	</div>
-	<div class="con">
-		<div class="scon">
-			<p class="dot"></p>
-			<p class="dot"></p>
-		</div>
-		<div class="scon">
-			<p class="dot"></p>
-			<p class="dot"></p>
-		</div>
-	</div>
-	<div class="con">
-		<div class="scon">
-			<p class="dot"></p>
-			<p class="dot"></p>
-		</div>
-		<div class="scon">
-			<p class="dot"></p>
-		</div>
-		<div class="scon">
-			<p class="dot"></p>
-			<p class="dot"></p>
-		</div>
-	</div>
-	<div class="con">
-		<div class="scon">
-			<p class="dot"></p>
-			<p class="dot"></p>
-		</div>
-		<div class="scon">
-			<p class="dot"></p>
-			<p class="dot"></p>
-		</div>
-		<div class="scon">
-			<p class="dot"></p>
-			<p class="dot"></p>
-		</div>
-	</div>
-</div>
-</div>
-</div>
-</body>
-<br>
-<br>
-<br>
-<br>
-
-	<button>随机旋转</button>
-<script>
-   //随机旋转角度
-	$("button").click(function(){
-		var arr=[-14,-13,-12,-11,10,11,12,13,14];
-		var a = Math.floor(Math.random()*9);
-		var b = Math.floor(Math.random()*9);
-		var c = Math.floor(Math.random()*9);
-		var d = Math.floor(Math.random()*9);
-		$("#stage_id_1").css({
-			transform: "rotateX("+(arr[a]*90)+"deg) rotateY("+(arr[b]*90)+"deg)"
-		});
-		$("#stage_id_2").css({
-			transform: "rotateX("+(arr[c]*90)+"deg) rotateY("+(arr[d]*90)+"deg)"
-		});
-		
-	});
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.css" type="text/css">
+        <script src="https://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js" type="text/javascript">
 </script>
+        <script src="https://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js" type="text/javascript">
+</script>
+        <style type="text/css">
+		.ui-block-a, .ui-block-b, .ui-block-c, .ui-block-d, .ui-block-e{
+            height: 150px;
+            text-align: center;
+            padding: 30px;
+        }
+        body{
+            background:#ccc;
+        }
+        p{
+            padding:0;
+            margin:0;
+        }
+        /*创建舞台的样式*/
+        .stage{
+            width:50px;
+            height:50px;
+            /*background:#fff;*/
+            perspective: 1000px;
+            margin:50px auto 0;
+            top: 1%;            
+            transform-style:preserve-3d; 
+            border:.0px solid gray;
+            position: relative;
+            transition: all 1s;
+            animation:;
+            transform:rotateX(-25deg) rotateY(15deg);
+            
+        }
+        .stage:hover{
+            transform: rotateX(180deg) rotateY(180deg);
+        }
+        /*创建面的样式*/
+        .con{
+            width:90%;
+            height:90%;
+            background: #fff;
+            opacity: 1;
+            border-radius: 10px;
+            position: absolute;
+        }
+        /*创点的样式*/
+        .dot{
+            width:10px;
+            height: 10px;
+            border-radius: 50%;
+            background:blue;
+        }
+        /*  控制点的位置*/
+        .stage .con:first-child{
+            display:flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .stage .con:first-child .dot{
+            width:20px;
+            height: 20px;
+            background: red;
+        }
+        .stage .con:nth-child(4) .dot{
+            background: red;
+        }
 
-  </div>
-
-  <div data-role="footer">
-    <h1>页面底部内容</h1>
-  </div>
-</div>
-
-</body>
+        .stage .con:nth-child(2){
+            display:flex;
+            justify-content:space-around;
+            
+        }
+        .stage .con:nth-child(2) .dot:nth-child(2){
+            align-self: flex-end;
+        }
+        .stage .con:nth-child(3){
+            display:flex;
+            justify-content:space-around;
+            
+        }
+        .stage .con:nth-child(3) .dot:nth-child(2){
+            align-self: center;
+        }
+        .stage .con:nth-child(3) .dot:nth-child(3){
+            align-self: flex-end;
+        }
+        .stage .con:nth-child(4){
+            display:flex;
+            flex-direction: column;
+            justify-content:space-around;
+            
+        }
+        .stage .con:nth-child(4) .scon{
+            display: flex;
+            justify-content:space-around;
+        }
+        .stage .con:nth-child(5){
+            display:flex;
+            flex-direction: column;
+            justify-content:space-around;
+            
+        }
+        .stage .con:nth-child(5) .scon{
+            display: flex;
+            justify-content:space-around;
+        }
+        .stage .con:nth-child(5) .scon:nth-child(2){
+            display: flex;
+            justify-content:center;
+        }
+        .stage .con:nth-child(6){
+            display:flex;
+            flex-direction: column;
+            justify-content:space-around;
+            
+        }
+        .stage .con:nth-child(6) .scon{
+            display: flex;
+            justify-content:space-around;
+        }
+        /*旋转六个面,形成一个立方体*/
+        .stage .con:first-child{
+            transform: translateZ(22.5px);
+        }
+        .stage .con:nth-child(6){
+            transform: translateZ(-22.5px);
+        }
+        .stage .con:nth-child(2){
+            transform: translateX(-22.5px) rotateY(90deg);
+        }
+        .stage .con:nth-child(5){
+            transform: translateX(22.5px) rotateY(90deg);
+        }
+        .stage .con:nth-child(3){
+            transform: translateY(-22.5px) rotateX(90deg);
+        }
+        .stage .con:nth-child(4){
+            transform: translateY(22.5px) rotateX(90deg);
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div data-role="page" id="pageone" data-theme="b">
+            <div data-role="header">
+				<h1>骰子游戏</h1>
+				<a href="#" class="ui-btn ui-corner-all ui-shadow ui-icon-search ui-btn-icon-left">登录</a>
+            </div>
+            <div data-role="content">
+                <div class="ui-grid-d">
+                    <div class="ui-block-a" align="center">
+                        <div class="stage" id="stage_id_1">
+                            <div class="con">
+                                <p class="dot"></p>
+                            </div>
+                            <div class="con">
+                                <p class="dot"></p>
+                                <p class="dot"></p>
+                            </div>
+                            <div class="con">
+                                <p class="dot"></p>
+                                <p class="dot"></p>
+                                <p class="dot"></p>
+                            </div>
+                            <div class="con">
+                                <div class="scon">
+                                    <p class="dot"></p>
+                                    <p class="dot"></p>
+                                </div>
+                                <div class="scon">
+                                    <p class="dot"></p>
+                                    <p class="dot"></p>
+                                </div>
+                            </div>
+                            <div class="con">
+                                <div class="scon">
+                                    <p class="dot"></p>
+                                    <p class="dot"></p>
+                                </div>
+                                <div class="scon">
+                                    <p class="dot"></p>
+                                </div>
+                                <div class="scon">
+                                    <p class="dot"></p>
+                                    <p class="dot"></p>
+                                </div>
+                            </div>
+                            <div class="con">
+                                <div class="scon">
+                                    <p class="dot"></p>
+                                    <p class="dot"></p>
+                                </div>
+                                <div class="scon">
+                                    <p class="dot"></p>
+                                    <p class="dot"></p>
+                                </div>
+                                <div class="scon">
+                                    <p class="dot"></p>
+                                    <p class="dot"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui-block-b" align="center">
+                        <div class="stage" id="stage_id_2">
+                            <div class="con">
+                                <p class="dot"></p>
+                            </div>
+                            <div class="con">
+                                <p class="dot"></p>
+                                <p class="dot"></p>
+                            </div>
+                            <div class="con">
+                                <p class="dot"></p>
+                                <p class="dot"></p>
+                                <p class="dot"></p>
+                            </div>
+                            <div class="con">
+                                <div class="scon">
+                                    <p class="dot"></p>
+                                    <p class="dot"></p>
+                                </div>
+                                <div class="scon">
+                                    <p class="dot"></p>
+                                    <p class="dot"></p>
+                                </div>
+                            </div>
+                            <div class="con">
+                                <div class="scon">
+                                    <p class="dot"></p>
+                                    <p class="dot"></p>
+                                </div>
+                                <div class="scon">
+                                    <p class="dot"></p>
+                                </div>
+                                <div class="scon">
+                                    <p class="dot"></p>
+                                    <p class="dot"></p>
+                                </div>
+                            </div>
+                            <div class="con">
+                                <div class="scon">
+                                    <p class="dot"></p>
+                                    <p class="dot"></p>
+                                </div>
+                                <div class="scon">
+                                    <p class="dot"></p>
+                                    <p class="dot"></p>
+                                </div>
+                                <div class="scon">
+                                    <p class="dot"></p>
+                                    <p class="dot"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+					<div class="ui-block-c" align="center">
+                        <div class="stage" id="stage_id_3">
+                            <div class="con">
+                                <p class="dot"></p>
+                            </div>
+                            <div class="con">
+                                <p class="dot"></p>
+                                <p class="dot"></p>
+                            </div>
+                            <div class="con">
+                                <p class="dot"></p>
+                                <p class="dot"></p>
+                                <p class="dot"></p>
+                            </div>
+                            <div class="con">
+                                <div class="scon">
+                                    <p class="dot"></p>
+                                    <p class="dot"></p>
+                                </div>
+                                <div class="scon">
+                                    <p class="dot"></p>
+                                    <p class="dot"></p>
+                                </div>
+                            </div>
+                            <div class="con">
+                                <div class="scon">
+                                    <p class="dot"></p>
+                                    <p class="dot"></p>
+                                </div>
+                                <div class="scon">
+                                    <p class="dot"></p>
+                                </div>
+                                <div class="scon">
+                                    <p class="dot"></p>
+                                    <p class="dot"></p>
+                                </div>
+                            </div>
+                            <div class="con">
+                                <div class="scon">
+                                    <p class="dot"></p>
+                                    <p class="dot"></p>
+                                </div>
+                                <div class="scon">
+                                    <p class="dot"></p>
+                                    <p class="dot"></p>
+                                </div>
+                                <div class="scon">
+                                    <p class="dot"></p>
+                                    <p class="dot"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div><div class="ui-block-d" align="center">
+                        <div class="stage" id="stage_id_4">
+                            <div class="con">
+                                <p class="dot"></p>
+                            </div>
+                            <div class="con">
+                                <p class="dot"></p>
+                                <p class="dot"></p>
+                            </div>
+                            <div class="con">
+                                <p class="dot"></p>
+                                <p class="dot"></p>
+                                <p class="dot"></p>
+                            </div>
+                            <div class="con">
+                                <div class="scon">
+                                    <p class="dot"></p>
+                                    <p class="dot"></p>
+                                </div>
+                                <div class="scon">
+                                    <p class="dot"></p>
+                                    <p class="dot"></p>
+                                </div>
+                            </div>
+                            <div class="con">
+                                <div class="scon">
+                                    <p class="dot"></p>
+                                    <p class="dot"></p>
+                                </div>
+                                <div class="scon">
+                                    <p class="dot"></p>
+                                </div>
+                                <div class="scon">
+                                    <p class="dot"></p>
+                                    <p class="dot"></p>
+                                </div>
+                            </div>
+                            <div class="con">
+                                <div class="scon">
+                                    <p class="dot"></p>
+                                    <p class="dot"></p>
+                                </div>
+                                <div class="scon">
+                                    <p class="dot"></p>
+                                    <p class="dot"></p>
+                                </div>
+                                <div class="scon">
+                                    <p class="dot"></p>
+                                    <p class="dot"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div><div class="ui-block-e" align="center">
+                        <div class="stage" id="stage_id_5">
+                            <div class="con">
+                                <p class="dot"></p>
+                            </div>
+                            <div class="con">
+                                <p class="dot"></p>
+                                <p class="dot"></p>
+                            </div>
+                            <div class="con">
+                                <p class="dot"></p>
+                                <p class="dot"></p>
+                                <p class="dot"></p>
+                            </div>
+                            <div class="con">
+                                <div class="scon">
+                                    <p class="dot"></p>
+                                    <p class="dot"></p>
+                                </div>
+                                <div class="scon">
+                                    <p class="dot"></p>
+                                    <p class="dot"></p>
+                                </div>
+                            </div>
+                            <div class="con">
+                                <div class="scon">
+                                    <p class="dot"></p>
+                                    <p class="dot"></p>
+                                </div>
+                                <div class="scon">
+                                    <p class="dot"></p>
+                                </div>
+                                <div class="scon">
+                                    <p class="dot"></p>
+                                    <p class="dot"></p>
+                                </div>
+                            </div>
+                            <div class="con">
+                                <div class="scon">
+                                    <p class="dot"></p>
+                                    <p class="dot"></p>
+                                </div>
+                                <div class="scon">
+                                    <p class="dot"></p>
+                                    <p class="dot"></p>
+                                </div>
+                                <div class="scon">
+                                    <p class="dot"></p>
+                                    <p class="dot"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><br>
+                <br>
+                <br>
+                <br>
+				<div data-role="main" class="ui-content">
+					<form method="post" action="###">
+						<label for="points">点数:</label>
+						<input type="range" name="points" id="points" value="7" min="6" max="29">
+						<input type="submit" id="button_tozi1" data-inline="true" value="投掷一把">
+						<input type="submit" id="button_tozi2" data-inline="true" value="小于">
+						<input type="submit" id="button_tozi3" data-inline="true" value="大于">
+						<input type="submit" id="button_tozi4" data-inline="true" value="押大">
+						<input type="submit" id="button_tozi5" data-inline="true" value="押小">
+					</form>
+				</div>
+				<script type="text/javascript">
+				function Touzi(){
+                var arr=[-14,-13,-12,-11,10,11,12,13,14];
+                var a = Math.floor(Math.random()*9);
+                var b = Math.floor(Math.random()*9);
+                var c = Math.floor(Math.random()*9);
+                var d = Math.floor(Math.random()*9);
+                $("#stage_id_1").css({
+                transform: "rotateX("+(arr[a]*90)+"deg) rotateY("+(arr[b]*90)+"deg)"
+                });
+                $("#stage_id_2").css({
+                transform: "rotateX("+(arr[c]*90)+"deg) rotateY("+(arr[d]*90)+"deg)"
+                });
+                $("#stage_id_3").css({
+                transform: "rotateX("+(arr[a]*90)+"deg) rotateY("+(arr[d]*90)+"deg)"
+                });
+                $("#stage_id_4").css({
+                transform: "rotateX("+(arr[a]*90)+"deg) rotateY("+(arr[c]*90)+"deg)"
+                });
+                $("#stage_id_5").css({
+                transform: "rotateX("+(arr[b]*90)+"deg) rotateY("+(arr[d]*90)+"deg)"
+                });
+				}
+				//随机旋转角度
+                $("#button_tozi1").click(function(){
+					Touzi();
+                });
+                $("#button_tozi2").click(function(){
+					Touzi();
+                });
+                $("#button_tozi3").click(function(){
+					Touzi();
+                });
+                $("#button_tozi4").click(function(){
+					Touzi();
+                });
+                $("#button_tozi5").click(function(){
+					Touzi();
+                });
+                </script>
+            </div>
+            <div data-role="footer">
+				<!--div data-role="controlgroup" data-type="horizontal">
+					<a href="#" class="ui-btn ui-corner-all ui-shadow ui-icon-comment ui-btn-icon-notext">评论</a>
+					<a href="#" class="ui-btn ui-corner-all ui-shadow ui-icon-delete ui-btn-icon-notext">删除</a>
+					<a href="#" class="ui-btn ui-corner-all ui-shadow ui-icon-phone ui-btn-icon-notext">打电话</a>
+				</div-->
+                <h1>
+                    最好玩的骰子游戏！@ 2018 ~ 2050
+                </h1>
+            </div>
+        </div>
+    </body>
 </html>
